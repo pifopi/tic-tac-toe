@@ -1,26 +1,22 @@
 #set the minimum cmake version required
-cmake_minimum_required(VERSION 3.9.1)
+cmake_minimum_required(VERSION 3.16.0)
 
 #set the name of the project
 project(tic-tac-toe)
 
-#enable c++ 17
-set(CMAKE_CXX_STANDARD 17)
+#enable c++ 20
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #set the root source directory as include directory
 include_directories(${CMAKE_SOURCE_DIR})
 
-#find Qt
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-if (Qt5Widgets_VERSION VERSION_LESS 5.10.0)
-	message(SEND_ERROR "Minimum supported Qt5 version is 5.10.0!")
-endif()
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
-set(MANAGER_MOC_FILE
-	MainWindow.h
-	OptionWindow.h
-)
-QT5_WRAP_CPP(MANAGER_MOC ${MANAGER_MOC_FILE})
+#find Qt
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 #enable warning and treat them as errors
 if(CMAKE_COMPILER_IS_GNUCC)
@@ -34,9 +30,9 @@ file(GLOB MAIN_SOURCES
 	*.h
 	*.hpp
 )
-add_executable(main WIN32 ${MAIN_SOURCES} ${MANAGER_MOC})
-set_target_properties(main PROPERTIES LINKER_LANGUAGE CXX)
-target_link_libraries(main Qt5::Widgets)
+add_executable(tic-tac-toe WIN32 MACOSX_BUNDLE ${MAIN_SOURCES})
+set_target_properties(tic-tac-toe PROPERTIES LINKER_LANGUAGE CXX)
+target_link_libraries(tic-tac-toe Qt6::Widgets)
 
 #copy needed files
 file(GLOB FILES

@@ -5,13 +5,6 @@
 
 namespace TicTacToe
 {
-    enum class Player
-    {
-        Empty,
-        Cross,
-        Nought
-    };
-
     using U8 = uint8_t;
     using U16 = uint16_t;
     using U32 = uint32_t;
@@ -22,14 +15,18 @@ namespace TicTacToe
     using S32 = int32_t;
     using S64 = int64_t;
 
-    using Map = std::array<std::array<Player, 3>, 3>;
-
-    class NonCopyable
+    enum class Player
     {
-    protected:
-        NonCopyable() = default;
-        ~NonCopyable() = default;
-        NonCopyable(const NonCopyable&) = delete;
-        NonCopyable& operator=(const NonCopyable&) = delete;
+        Empty,
+        Cross,
+        Nought
     };
+
+    namespace
+    {
+        constexpr U8 k_sizeGrid = 3;
+    }
+
+    using Line = std::array<Player, k_sizeGrid>;
+    using Grid = std::array<Line, k_sizeGrid>;
 }

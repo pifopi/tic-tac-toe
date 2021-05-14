@@ -5,34 +5,24 @@
 #include <array>
 #include <QWidget>
 
-class QGridLayout;
 class QPushButton;
-class QSignalMapper;
 
 namespace TicTacToe
 {
+    class GameManager;
+    class ImageManager;
+
     class MainWindow
         : public QWidget
-        , public NonCopyable
     {
         Q_OBJECT
     public:
-        static MainWindow& Instance();
+        MainWindow(const Grid& grid, const ImageManager& imageManager, GameManager& gameManager);
 
-        void UpdateButtons();
-        void DisplayEndGame(const Player& player);
+        void UpdateButtons(const Grid& grid, const ImageManager& imageManager);
+        void DisplayEndGame(Player player, GameManager& gameManager);
 
     private:
-        MainWindow();
-        ~MainWindow();
-
-        QPushButton* m_showOptionsWindowButton;
-        QSignalMapper* m_signalMapper;
-        std::array<std::array<QPushButton*, 3>, 3> m_buttons;
-        QGridLayout* m_layout;
-
-        private slots:
-        void SelectCase(const QString& text);
-        void ShowOptionsWindow();
+        std::array<std::array<QPushButton*, k_sizeGrid>, k_sizeGrid> m_buttons;
     };
 }

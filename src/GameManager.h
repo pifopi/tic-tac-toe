@@ -2,29 +2,31 @@
 
 #include "Utils.h"
 
+#include "ImageManager.h"
+#include "MainWindow.h"
+#include "OptionsManager.h"
+#include "OptionsWindow.h"
+
 namespace TicTacToe
 {
     class GameManager
-        : public NonCopyable
     {
     public:
-        static GameManager& Instance();
-
-        void LaunchGame();
-        bool GetVictory(const Map& map, const Player& player) const;
-        bool IsMapFull(const Map& map) const;
-        const Map& GetMap() const;
-        const Player& GetCurrentPlayer() const;
-        const Player& GetCurrentOpponent() const;
-        void PlayAt(const U8& x, const U8& y);
-        void PlayAITurn();
-        void Reset();
-
-    private:
         GameManager();
 
-        Map m_currentMap;
-        Player m_currentPlayer;
-        Player m_currentOpponent;
+        void LaunchGame();
+        void PlayAt(U8 x, U8 y);
+        void PlayAITurnIfNeeded();
+        void Reset();
+        void ShowOptionsWindow();
+
+    private:
+        Grid m_currentGrid;
+        Player m_currentPlayer{ Player::Cross };
+        Player m_currentOpponent{ Player::Nought };
+        ImageManager m_imageManager;
+        OptionsManager m_optionsManager;
+        MainWindow m_mainWindow;
+        OptionsWindow m_optionsWindow;
     };
 }

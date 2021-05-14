@@ -2,13 +2,12 @@
 
 #include <QApplication>
 
-//#include "vld.h"
-
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    TicTacToe::GameManager::Instance().LaunchGame();
+    TicTacToe::GameManager gameManager;
+    gameManager.LaunchGame();
 
     return app.exec();
 }
