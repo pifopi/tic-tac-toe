@@ -1,6 +1,6 @@
 #include "AI.h"
 
-#include "EndGameChecker.h"
+#include "Grid.h"
 
 #include <algorithm>
 
@@ -13,15 +13,15 @@ namespace TicTacToe
 
         S8 CalcMin(Grid& grid, const Player currentPlayer, const Player opponentPlayer, const U8 depth)
         {
-            if (EndGameChecker::IsVictoryFor(grid, currentPlayer))
+            if (grid.IsVictoryFor(currentPlayer))
             {
                 return std::numeric_limits<S8>::max() - depth;
             }
-            else if (EndGameChecker::IsVictoryFor(grid, opponentPlayer))
+            else if (grid.IsVictoryFor(opponentPlayer))
             {
                 return std::numeric_limits<S8>::min() + depth;
             }
-            else if (EndGameChecker::IsGridFull(grid))
+            else if (grid.IsGridFull())
             {
                 return depth;
             }
@@ -31,11 +31,11 @@ namespace TicTacToe
             {
                 for (U8 y = 0; y < k_sizeGrid; ++y)
                 {
-                    if (grid[x][y] == Player::Empty)
+                    if (grid.Get(x, y) == Player::Empty)
                     {
-                        grid[x][y] = opponentPlayer;
+                        grid.Set(x, y, opponentPlayer);
                         min = std::min(CalcMax(grid, currentPlayer, opponentPlayer, depth + 1), min);
-                        grid[x][y] = Player::Empty;
+                        grid.Set(x, y, Player::Empty);
                     }
                 }
             }
@@ -44,15 +44,15 @@ namespace TicTacToe
 
         S8 CalcMax(Grid& grid, const Player currentPlayer, const Player opponentPlayer, const U8 depth)
         {
-            if (EndGameChecker::IsVictoryFor(grid, currentPlayer))
+            if (grid.IsVictoryFor(currentPlayer))
             {
                 return std::numeric_limits<S8>::max() - depth;
             }
-            else if (EndGameChecker::IsVictoryFor(grid, opponentPlayer))
+            else if (grid.IsVictoryFor(opponentPlayer))
             {
                 return std::numeric_limits<S8>::min() + depth;
             }
-            else if (EndGameChecker::IsGridFull(grid))
+            else if (grid.IsGridFull())
             {
                 return depth;
             }
@@ -62,11 +62,11 @@ namespace TicTacToe
             {
                 for (U8 y = 0; y < k_sizeGrid; ++y)
                 {
-                    if (grid[x][y] == Player::Empty)
+                    if (grid.Get(x,  y) == Player::Empty)
                     {
-                        grid[x][y] = currentPlayer;
+                        grid.Set(x, y, currentPlayer);
                         max = std::max(CalcMin(grid, currentPlayer, opponentPlayer, depth + 1), max);
-                        grid[x][y] = Player::Empty;
+                        grid.Set(x, y, Player::Empty);
                     }
                 }
             }
@@ -83,11 +83,11 @@ namespace TicTacToe
             {
                 for (U8 y = 0; y < k_sizeGrid; ++y)
                 {
-                    if (grid[x][y] == Player::Empty)
+                    if (grid.Get(x, y) == Player::Empty)
                     {
-                        grid[x][y] = currentPlayer;
+                        grid.Set(x, y, currentPlayer);
                         S8 calc = CalcMin(grid, currentPlayer, opponentPlayer, 1);
-                        grid[x][y] = Player::Empty;
+                        grid.Set(x, y, Player::Empty);
 
                         if (calc > max)
                         {

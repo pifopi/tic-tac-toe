@@ -2,6 +2,7 @@
 
 #include "Utils.h"
 
+#include "Grid.h"
 #include "ImageManager.h"
 #include "MainWindow.h"
 #include "OptionsManager.h"

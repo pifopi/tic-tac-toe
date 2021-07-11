@@ -1,7 +1,6 @@
 #include "GameManager.h"
 
 #include "AI.h"
-#include "EndGameChecker.h"
 #include "MainWindow.h"
 #include "OptionsManager.h"
 
@@ -30,16 +29,16 @@ namespace TicTacToe
 
     void GameManager::PlayAt(const U8 x, const U8 y)
     {
-        m_currentGrid[x][y] = m_currentPlayer;
+        m_currentGrid.Set(x, y, m_currentPlayer);
         std::swap(m_currentPlayer, m_currentOpponent);
         m_mainWindow.UpdateButtons(m_currentGrid, m_imageManager);
 
         //opponent because we just swaped
-        if (EndGameChecker::IsVictoryFor(m_currentGrid, m_currentOpponent))
+        if (m_currentGrid.IsVictoryFor(m_currentOpponent))
         {
             m_mainWindow.DisplayEndGame(m_currentOpponent, *this);
         }
-        else if (EndGameChecker::IsGridFull(m_currentGrid))
+        else if (m_currentGrid.IsGridFull())
         {
             m_mainWindow.DisplayEndGame(Player::Empty, *this);
         }
@@ -65,13 +64,7 @@ namespace TicTacToe
         m_currentPlayer = Player::Cross;
         m_currentOpponent = Player::Nought;
 
-        for (auto& row : m_currentGrid)
-        {
-            for (auto& elem : row)
-            {
-                elem = Player::Empty;
-            }
-        }
+        m_currentGrid.Reset();
         m_mainWindow.UpdateButtons(m_currentGrid, m_imageManager);
 
         PlayAITurnIfNeeded();

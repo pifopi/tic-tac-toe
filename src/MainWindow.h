@@ -2,6 +2,8 @@
 
 #include "Utils.h"
 
+#include "Grid.h"
+
 #include <array>
 #include <QWidget>
 

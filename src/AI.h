@@ -6,6 +6,8 @@
 
 namespace TicTacToe
 {
+    class Grid;
+
     namespace AI
     {
         //one grid copy is intended

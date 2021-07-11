@@ -53,8 +53,9 @@ namespace TicTacToe
         {
             for (U8 y = 0; y < k_sizeGrid; ++y)
             {
-                m_buttons[x][y]->setIcon(imageManager.GetPlayerImage(grid[x][y]));
-                if (grid[x][y] == Player::Empty)
+                Player player = grid.Get(x, y);
+                m_buttons[x][y]->setIcon(imageManager.GetPlayerImage(player));
+                if (player == Player::Empty)
                 {
                     m_buttons[x][y]->setEnabled(true);
                 }

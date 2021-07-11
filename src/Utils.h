@@ -26,7 +26,4 @@ namespace TicTacToe
     {
         constexpr U8 k_sizeGrid = 3;
     }
-
-    using Line = std::array<Player, k_sizeGrid>;
-    using Grid = std::array<Line, k_sizeGrid>;
 }
