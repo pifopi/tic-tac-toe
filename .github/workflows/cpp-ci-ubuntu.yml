@@ -4,16 +4,31 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
-        version: '6.2.0'
+        version: '6.1.0'
     - name: C++ generation
       run: |
         mkdir bin
         cd bin
-        cmake ../src -DCMAKE_PREFIX_PATH=%Qt6_DIR%
+        mkdir Debug
+        mkdir Release
+        mkdir RelWithDebInfo
+        mkdir MinSizeRel
+        cd Debug
+        cmake ../../src/ -DCMAKE_PREFIX_PATH=%Qt6_DIR% -DCMAKE_BUILD_TYPE=Debug
+        make
+        cd ../Release
+        cmake ../../src/ -DCMAKE_PREFIX_PATH=%Qt6_DIR% -DCMAKE_BUILD_TYPE=Release
+        make
+        cd ../RelWithDebInfo
+        cmake ../../src/ -DCMAKE_PREFIX_PATH=%Qt6_DIR% -DCMAKE_BUILD_TYPE=RelWithDebInfo
+        make
+        cd ../MinSizeRel
+        cmake ../../src/ -DCMAKE_PREFIX_PATH=%Qt6_DIR%-DCMAKE_BUILD_TYPE=MinSizeRel
+        make
