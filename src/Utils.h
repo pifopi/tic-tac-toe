@@ -29,6 +29,8 @@ namespace TicTacToe
 
     class NonCopyable
     {
+	protected:
+		NonCopyable() = default;
     private:
         NonCopyable(const NonCopyable&) = delete;
         NonCopyable& operator=(const NonCopyable&) = delete;
@@ -36,6 +38,8 @@ namespace TicTacToe
 
     class NonMoveable
     {
+	protected:
+		NonMoveable() = default;
     private:
         NonMoveable(const NonMoveable&) = delete;
         NonMoveable(NonMoveable&&) = delete;
