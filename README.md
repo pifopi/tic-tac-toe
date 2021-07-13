@@ -4,13 +4,13 @@ external libs/tools used :
 
 | library / tool | link                         |
 |----------------|------------------------------|
-| Qt 6.1.0       | <https://www.qt.io/download> |
+| Qt 6.2.0       | <https://www.qt.io/download> |
 
 To generate the project, you must define :
 
 | define            | description                           | windows example          | linux example               |
 |-------------------|---------------------------------------|--------------------------|-----------------------------|
-| CMAKE_PREFIX_PATH | path of your installation of Qt 6.1.0 | C:/Qt/6.1.0/msvc2019_64/ | /home/gael/Qt/6.1.0/gcc_64/ |
+| CMAKE_PREFIX_PATH | path of your installation of Qt 6.2.0 | C:/Qt/6.2.0/msvc2019_64/ | /home/gael/Qt/6.2.0/gcc_64/ |
 
 # Visual studio
 

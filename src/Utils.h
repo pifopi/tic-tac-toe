@@ -26,4 +26,18 @@ namespace TicTacToe
     {
         constexpr U8 k_sizeGrid = 3;
     }
+
+    class NonCopyable
+    {
+    private:
+        NonCopyable(const NonCopyable&) = delete;
+        NonCopyable& operator=(const NonCopyable&) = delete;
+    };
+
+    class NonMoveable
+    {
+    private:
+        NonMoveable(const NonMoveable&) = delete;
+        NonMoveable(NonMoveable&&) = delete;
+    };
 }
