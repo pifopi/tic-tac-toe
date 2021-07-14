@@ -53,71 +53,19 @@ namespace TicTacToe
         bool isVictory = false;
         if (player != Player::Empty)
         {
-            //checks the row
-            {
-                std::array<Player, k_sizeGrid> row;
-                for (U8 i = 0; i < k_sizeGrid; ++i)
-                {
-                    row[i] = Get(x, i);
-                }
-                if (std::all_of(begin(row), end(row), [player](const Player p)
-                    {
-                        return player == p;
-                    }))
-                {
-                    isVictory = true;
-                }
-            }
-
-            //checks the column
-            {
-                std::array<Player, k_sizeGrid> column;
-                for (U8 i = 0; i < k_sizeGrid; ++i)
-                {
-                    column[i] = Get(i, y);
-                }
-                if (std::all_of(begin(column), end(column), [player](const Player p)
-                    {
-                        return player == p;
-                    }))
-                {
-                    isVictory = true;
-                }
-            }
+            isVictory |= CheckFullRow(x, player);
+            isVictory |= CheckFullColumn(y, player);
 
             //check the diagonal if needed
             if (x == y)
             {
-                std::array<Player, k_sizeGrid> diagonal;
-                for (U8 i = 0; i < k_sizeGrid; ++i)
-                {
-                    diagonal[i] = Get(i, i);
-                }
-                if (std::all_of(begin(diagonal), end(diagonal), [player](const Player p)
-                    {
-                        return player == p;
-                    }))
-                {
-                    isVictory = true;
-                }
-
+                isVictory |= CheckFullDiagonal(player);
             }
 
             //check the antediagonal if needed
             if (x == k_sizeGrid - 1 - y)
             {
-                std::array<Player, k_sizeGrid> anteDiagonal;
-                for (U8 i = 0; i < k_sizeGrid; ++i)
-                {
-                    anteDiagonal[i] = Get(i, k_sizeGrid - 1 - i);
-                }
-                if (std::all_of(begin(anteDiagonal), end(anteDiagonal), [player](const Player p)
-                    {
-                        return player == p;
-                    }))
-                {
-                    isVictory = true;
-                }
+                isVictory |= CheckFullAntediagonal(player);
             }
         }
 
@@ -149,5 +97,53 @@ namespace TicTacToe
             }
         }
         m_isGridFull = true;
+    }
+
+    bool Grid::CheckFullRow(const U8 x, Player player) const
+    {
+        std::array<Player, k_sizeGrid> row;
+        for (U8 i = 0; i < k_sizeGrid; ++i)
+        {
+            row[i] = Get(x, i);
+        }
+        return CheckFullLine(row, player);
+    }
+
+    bool Grid::CheckFullColumn(const U8 y, Player player) const
+    {
+        std::array<Player, k_sizeGrid> column;
+        for (U8 i = 0; i < k_sizeGrid; ++i)
+        {
+            column[i] = Get(i, y);
+        }
+        return CheckFullLine(column, player);
+    }
+
+    bool Grid::CheckFullDiagonal(Player player) const
+    {
+        std::array<Player, k_sizeGrid> diagonal;
+        for (U8 i = 0; i < k_sizeGrid; ++i)
+        {
+            diagonal[i] = Get(i, i);
+        }
+        return CheckFullLine(diagonal, player);
+    }
+
+    bool Grid::CheckFullAntediagonal(Player player) const
+    {
+        std::array<Player, k_sizeGrid> anteDiagonal;
+        for (U8 i = 0; i < k_sizeGrid; ++i)
+        {
+            anteDiagonal[i] = Get(i, k_sizeGrid - 1 - i);
+        }
+        return CheckFullLine(anteDiagonal, player);
+    }
+
+    bool Grid::CheckFullLine(const std::array<Player, k_sizeGrid>& line, const Player player) const
+    {
+        return std::all_of(begin(line), end(line), [player](const Player p)
+        {
+            return player == p;
+        });
     }
 }

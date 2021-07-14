@@ -11,6 +11,8 @@
 namespace TicTacToe
 {
     class GameManager
+        : public NonCopyable
+        , public NonMoveable
     {
     public:
         GameManager();

@@ -5,6 +5,8 @@
 namespace TicTacToe
 {
     class OptionsManager
+        : public NonCopyable
+        , public NonMoveable
     {
     public:
         bool IsAI(Player player) const;

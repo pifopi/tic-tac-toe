@@ -16,6 +16,8 @@ namespace TicTacToe
 
     class MainWindow
         : public QWidget
+        , public NonCopyable
+        , public NonMoveable
     {
         Q_OBJECT
     public:

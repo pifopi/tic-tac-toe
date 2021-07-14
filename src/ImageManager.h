@@ -7,6 +7,8 @@
 namespace TicTacToe
 {
     class ImageManager
+        : public NonCopyable
+        , public NonMoveable
     {
     public:
         ImageManager();

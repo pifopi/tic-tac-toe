@@ -11,6 +11,8 @@ namespace TicTacToe
 
     class OptionsWindow
         : public QDialog
+        , public NonCopyable
+        , public NonMoveable
     {
         Q_OBJECT
     public:
