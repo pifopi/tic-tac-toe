@@ -22,7 +22,6 @@ namespace TicTacToe
         bool CheckFullColumn(U8 y, Player player) const;
         bool CheckFullDiagonal(Player player) const;
         bool CheckFullAntediagonal(Player player) const;
-        bool CheckFullLine(const std::array<Player, k_sizeGrid>& line, Player player) const;
 
         std::array<Player, k_sizeGrid* k_sizeGrid> m_grid{ Player::Empty };
         bool m_isCrossVictory{ false };

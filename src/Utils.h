@@ -24,7 +24,7 @@ namespace TicTacToe
 
     namespace
     {
-        constexpr U8 k_sizeGrid = 3;
+        constexpr U8 k_sizeGrid = 4;
     }
 
     class NonCopyable

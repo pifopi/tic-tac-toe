@@ -99,51 +99,43 @@ namespace TicTacToe
         m_isGridFull = true;
     }
 
-    bool Grid::CheckFullRow(const U8 x, Player player) const
+    bool Grid::CheckFullRow(const U8 x, const Player player) const
     {
-        std::array<Player, k_sizeGrid> row;
+        bool isFull = true;
         for (U8 i = 0; i < k_sizeGrid; ++i)
         {
-            row[i] = Get(x, i);
+            isFull &= player == Get(x, i);
         }
-        return CheckFullLine(row, player);
+        return isFull;
     }
 
-    bool Grid::CheckFullColumn(const U8 y, Player player) const
+    bool Grid::CheckFullColumn(const U8 y, const Player player) const
     {
-        std::array<Player, k_sizeGrid> column;
+        bool isFull = true;
         for (U8 i = 0; i < k_sizeGrid; ++i)
         {
-            column[i] = Get(i, y);
+            isFull &= player == Get(i, y);
         }
-        return CheckFullLine(column, player);
+        return isFull;
     }
 
-    bool Grid::CheckFullDiagonal(Player player) const
+    bool Grid::CheckFullDiagonal(const Player player) const
     {
-        std::array<Player, k_sizeGrid> diagonal;
+        bool isFull = true;
         for (U8 i = 0; i < k_sizeGrid; ++i)
         {
-            diagonal[i] = Get(i, i);
+            isFull &= player == Get(i, i);
         }
-        return CheckFullLine(diagonal, player);
+        return isFull;
     }
 
-    bool Grid::CheckFullAntediagonal(Player player) const
+    bool Grid::CheckFullAntediagonal(const Player player) const
     {
-        std::array<Player, k_sizeGrid> anteDiagonal;
+        bool isFull = true;
         for (U8 i = 0; i < k_sizeGrid; ++i)
         {
-            anteDiagonal[i] = Get(i, k_sizeGrid - 1 - i);
+            isFull &= player == Get(i, k_sizeGrid - 1 - i);
         }
-        return CheckFullLine(anteDiagonal, player);
-    }
-
-    bool Grid::CheckFullLine(const std::array<Player, k_sizeGrid>& line, const Player player) const
-    {
-        return std::all_of(begin(line), end(line), [player](const Player p)
-        {
-            return player == p;
-        });
+        return isFull;
     }
 }
