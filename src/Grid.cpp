@@ -5,7 +5,7 @@
 
 namespace TicTacToe
 {
-    void Grid::Set(U8 x, U8 y, Player player)
+    void Grid::Set(const U8 x, const U8 y, const Player player)
     {
         m_grid[x * k_sizeGrid + y] = player;
 
